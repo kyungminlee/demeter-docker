@@ -1,7 +1,8 @@
 FROM ubuntu:18.04
-MAINTAINER Kyungmin Lee <kyungmin.lee.42@gmail.com>
+LABEL maintainer="Kyungmin Lee <kyungmin.lee.42@gmail.com>"
 
-RUN apt-get update 
+RUN apt-get update
+RUN apt-get install -y apt-utils
 RUN apt-get install -y build-essential git gfortran gnuplot ifeffit dbus-x11 libx11-dev libncurses5-dev libpng-dev libgif-dev libwxgtk3.0-dev
 RUN apt-get install -y \
     libifeffit-perl \
@@ -58,8 +59,8 @@ RUN apt-get install -y xterm
 
 RUN mkdir -p /home/user
 WORKDIR /home/user
-RUN git clone git://github.com/bruceravel/demeter.git
-WORKDIR /home/user/demeter
+RUN curl https://github.com/bruceravel/demeter/archive/0.9.26.tar.gz | tar xv -
+WORKDIR /home/user/demeter-0.9.26
 
 RUN perl -I. ./Build.PL
 RUN ./Build
